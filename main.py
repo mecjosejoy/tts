@@ -3,6 +3,10 @@ from gtts import gTTS
 from pydub import AudioSegment
 import os
 
+proxy = "http://tmglotxc-rotate:stlrhx17nhqj@p.webshare.io:80/"
+
+os.environ["http_proxy"] = proxy
+os.environ["https_proxy"] = proxy
 
 # Function to read the CSV file and convert each row to speech
 def csv_to_speech(csv_file, language="ta", output_dir="output"):
