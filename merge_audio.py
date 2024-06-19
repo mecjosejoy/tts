@@ -12,6 +12,7 @@ def merge_audios(input_folder, output_file):
             file_path = os.path.join(input_folder, filename)
             audio = AudioSegment.from_wav(file_path)
             combined += audio
+            print(f"Added {filename} to the combined audio.")
 
     # Export the combined audio
     combined.export(output_file, format="wav")
