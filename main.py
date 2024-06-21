@@ -5,8 +5,7 @@ import os
 
 proxy = "http://tmglotxc-rotate:stlrhx17nhqj@p.webshare.io:80/"
 
-os.environ["http_proxy"] = proxy
-os.environ["https_proxy"] = proxy
+
 
 # Function to read the CSV file and convert each row to speech
 def csv_to_speech(csv_file, language="ta", output_dir="output"):
@@ -22,7 +21,7 @@ def csv_to_speech(csv_file, language="ta", output_dir="output"):
         text = str(row[0])
         if len(text) == 0:
             continue
-        
+
         if os.path.exists(os.path.join(output_dir, f"{index + 1}.wav")):
             print(f"Skipping {index + 1}.wav as it already exists")
             continue
@@ -30,7 +29,18 @@ def csv_to_speech(csv_file, language="ta", output_dir="output"):
         # Convert text to speech and save as MP3
         tts = gTTS(text=text, lang=language)
         mp3_file = os.path.join(output_dir, f"{index + 1}.mp3")
-        tts.save(mp3_file)
+        try:
+            if "http_proxy" in os.environ:
+                del os.environ["http_proxy"]
+            if "https_proxy" in os.environ:
+                del os.environ["https_proxy"]
+            tts.save(mp3_file)
+        except Exception as e:
+            print(f"Error: {e}")
+
+            os.environ["http_proxy"] = proxy
+            os.environ["https_proxy"] = proxy
+            tts.save(mp3_file)
 
         # Convert MP3 to WAV
         wav_file = os.path.join(output_dir, f"{index + 1}.wav")
@@ -40,7 +50,7 @@ def csv_to_speech(csv_file, language="ta", output_dir="output"):
         os.remove(mp3_file)
 
         print(f"Saved {wav_file}")
-        #eturn wav_file
+        # eturn wav_file
 
 
 # Example usage
