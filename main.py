@@ -54,5 +54,5 @@ def csv_to_speech(csv_file, language="ta", output_dir="output"):
 
 
 # Example usage
-csv_file_path = "Speech - Sheet1.csv"  # Replace with your actual CSV file path
+csv_file_path = "input.csv"  # Replace with your actual CSV file path
 csv_to_speech(csv_file_path)
